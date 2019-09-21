@@ -68,18 +68,13 @@ class List:
         print('No such element: ' + str(val))
         return -1
 
-def to_list(number):
+def to_list_v2(num):
     l = List()
-    strnum = str(number)
-    i = 0
-    while i < len(strnum):
-        l.add(int(strnum[i]))
-        i += 1
+    if (num == 0):
+        l.add(0)
+    while num != 0:
+        l.add(num % 10)
+        num = num // 10
     return l
 
-l = to_list(12345)
-l.add(6)
-l.delete(3)
-l.delete(1)
-print(l)
 
