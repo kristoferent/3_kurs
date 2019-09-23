@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, value = None, next_n = None):
+    def __init__(self, value=None, next_n=None):
         self.value = value
         self.next_n = next_n
 
@@ -10,10 +10,10 @@ class List:
         self.length = 0
 
     def __str__(self):
-        if self.end != None:
+        if self.end is not None:
             cur = self.head
             out = ''
-            while cur.next_n != None:
+            while cur.next_n is not None:
                 out += str(cur.value) + ' -> '
                 cur = cur.next_n
             out += str(cur.value)
@@ -21,7 +21,7 @@ class List:
         return 'List is empty.'
 
     def add(self, val):
-        if self.end == None:
+        if self.end is None:
             self.end = self.head = Node(val, None)
         else:
             self.end.next_n = Node(val, None)
@@ -29,7 +29,7 @@ class List:
         self.length += 1
 
     def delete_last(self):
-        if self.end == None:
+        if self.end is None:
             print('Error! List is empty.')
         elif self.head == self.end:
             self.__init__()
@@ -59,7 +59,7 @@ class List:
     def find(self, val):
         count = 0
         cur = self.head
-        while cur != None:
+        while cur is not None:
             if cur.value == val:
                 return count
             else:
@@ -69,12 +69,12 @@ class List:
         return -1
 
 def to_list_v2(num):
-    l = List()
-    if (num == 0):
-        l.add(0)
+    new_list = List()
+    if num == 0:
+        new_list.add(0)
     while num != 0:
-        l.add(num % 10)
+        new_list.add(num % 10)
         num = num // 10
-    return l
+    return new_list
 
 
