@@ -1,29 +1,42 @@
+"""
+Input 3k numbers, where k is natural. Then input
+2 more numbers separately.
+Example: 2 1 1 2 3 1 3 4 1
+         4
+         2
+Output: 2
+"""
+
 class Graph:
+    """Already explained."""
     def __init__(self):
         self.m = {}
         self.weight = {}
-    def add_elem(self, p1, p2, w):
-        if p1 in self.m:
-            if p2 not in self.m[p1]:
-                self.m[p1].append([p2, w])
+    def add_elem(self, p_1, p_2, wgt):
+        """Already explained."""
+        if p_1 in self.m:
+            if p_2 not in self.m[p_1]:
+                self.m[p_1].append([p_2, wgt])
         else:
-            self.m[p1] = []
-            self.m[p1].append([p2, w])
-        self.weight[p1] = float('inf')
-        if p2 in self.m:
-            if p1 not in self.m[p2]:
-                self.m[p2].append([p1, w])
+            self.m[p_1] = []
+            self.m[p_1].append([p_2, wgt])
+        self.weight[p_1] = float('inf')
+        if p_2 in self.m:
+            if p_1 not in self.m[p_2]:
+                self.m[p_2].append([p_1, wgt])
         else:
-            self.m[p2] = []
-            self.m[p2].append([p1, w])
-        self.weight[p2] = float('inf')
-    def find_way(self, nodeStart, n):
+            self.m[p_2] = []
+            self.m[p_2].append([p_1, wgt])
+        self.weight[p_2] = float('inf')
+    def find_way(self, node_start, n_nodes):
+        """The only difference in this function is that now it
+        returns the biggest node 'weight'"""
         seen = []
         layer = []
         best_way = {}
-        self.weight[nodeStart] = 0
-        layer.append(nodeStart)
-        best_way[nodeStart] = [nodeStart]
+        self.weight[node_start] = 0
+        layer.append(node_start)
+        best_way[node_start] = [node_start]
         while layer:
             elem = layer.pop(layer.index(min(layer)))
             next_layer = []
@@ -39,7 +52,7 @@ class Graph:
             if not layer:
                 layer = next_layer
         max_time = 0
-        for i in range (1, n + 1):
+        for i in range(1, n_nodes + 1):
             key = str(i)
             if key not in self.weight:
                 return -1
@@ -48,11 +61,10 @@ class Graph:
         return max_time
 
 
-graph = Graph()
-a = input().split()
+GRAPH = Graph()
+S = input().split()
 N = input()
 X = input()
-for i in range(0, len(a), 3):
-    graph.add_elem(a[i], a[i + 1], a[i + 2])
-print(graph.find_way(X, int(N)))
-
+for k in range(0, len(S), 3):
+    GRAPH.add_elem(S[k], S[k + 1], S[k + 2])
+print(GRAPH.find_way(X, int(N)))

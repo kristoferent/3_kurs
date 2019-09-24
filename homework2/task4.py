@@ -1,23 +1,34 @@
+"""
+Input 2k numbers, where k is natural.
+Example:
+Input: 0 3 1 3 2 3 4 3 5 4
+Output: ??? (depends on the algorithm)
+"""
+
 class Graph:
+    """m_arr is a dictionary where 'm_arr[key] = value' means
+    that there is a verge between nodes 'key' and 'value'."""
     def __init__(self):
-        self.m = {}
-    def add_elem(self, p1, p2):
-        if p1 in self.m:
-            if p2 not in self.m[p1]:
-                self.m[p1] += p2
+        self.m_arr = {}
+    def add_elem(self, p_1, p_2):
+        """Add new verge between p_1 and p_2"""
+        if p_1 in self.m_arr:
+            if p_2 not in self.m_arr[p_1]:
+                self.m_arr[p_1] += p_2
         else:
-            self.m[p1] = []
-            self.m[p1] += p2
-        if p2 in self.m:
-            if p1 not in self.m[p2]:
-                self.m[p2] += p1
+            self.m_arr[p_1] = []
+            self.m_arr[p_1] += p_2
+        if p_2 in self.m_arr:
+            if p_1 not in self.m_arr[p_2]:
+                self.m_arr[p_2] += p_1
         else:
-            self.m[p2] = []
-            self.m[p2] += p1
+            self.m_arr[p_2] = []
+            self.m_arr[p_2] += p_1
     def bfs(self):
+        """Breadth first search"""
         seen = []
         layer = []
-        for key in self.m:
+        for key in self.m_arr:
             if key not in seen:
                 layer.append(key)
                 while layer:
@@ -25,15 +36,16 @@ class Graph:
                     next_layer = []
                     print(elem)
                     seen.append(elem)
-                    for i in range(0, len(self.m[elem])):
-                        if self.m[elem][i] not in seen:
-                            next_layer.append(self.m[elem][i])
+                    for i in range(0, len(self.m_arr[elem])):
+                        if self.m_arr[elem][i] not in seen:
+                            next_layer.append(self.m_arr[elem][i])
                     if not layer:
                         layer = next_layer
     def dfs(self):
+        """Depth first search"""
         seen = []
         layer = []
-        for key in self.m:
+        for key in self.m_arr:
             if key not in seen:
                 layer.append(key)
                 while layer:
@@ -41,13 +53,13 @@ class Graph:
                     next_layer = []
                     print(elem)
                     seen.append(elem)
-                    for i in range(0, len(self.m[elem])):
-                        if self.m[elem][i] not in seen and self.m[elem][i] not in layer:
-                            next_layer.insert(0, self.m[elem][i])
+                    for j in range(0, len(self.m_arr[elem])):
+                        if self.m_arr[elem][j] not in seen and self.m_arr[elem][j] not in layer:
+                            next_layer.insert(0, self.m_arr[elem][j])
                     layer += next_layer
 
-graph = Graph()
-a = input().split()
-for i in range(0, len(a), 2):
-    graph.add_elem(a[i], a[i + 1])
-graph.bfs()
+GRAPH = Graph()
+S = input().split()
+for k in range(0, len(S), 2):
+    GRAPH.add_elem(S[k], S[k + 1])
+GRAPH.bfs()
