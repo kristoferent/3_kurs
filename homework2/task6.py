@@ -62,9 +62,19 @@ class Graph:
 
 
 GRAPH = Graph()
-S = input().split()
-N = input()
-X = input()
+Str = input()
+S = []
+new_num = 0
+num_started = 0
+for i in range(len(Str)):
+    if Str[i] >= '0' and Str[i] <= '9':
+        new_num = new_num * 10 + int(Str[i])
+        num_started = 1
+    elif num_started:
+        S.append(str(new_num))
+        new_num = 0
+        num_started = 0
+N, X = map(int, input().split())
 for k in range(0, len(S), 3):
     GRAPH.add_elem(S[k], S[k + 1], S[k + 2])
-print(GRAPH.find_way(X, int(N)))
+print(GRAPH.find_way(str(X), N))

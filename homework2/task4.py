@@ -59,7 +59,25 @@ class Graph:
                     layer += next_layer
 
 GRAPH = Graph()
-S = input().split()
+Str = input()
+S = []
+new_num = 0
+num_started = 0
+for i in range(len(Str)):
+    if Str[i] >= '0' and Str[i] <= '9':
+        new_num = new_num * 10 + int(Str[i])
+        num_started = 1
+    elif num_started:
+        S.append(str(new_num))
+        new_num = 0
+        num_started = 0
+
 for k in range(0, len(S), 2):
     GRAPH.add_elem(S[k], S[k + 1])
-GRAPH.bfs()
+choice = input("Choose between dfs and bfs: ")
+if choice == "dfs":
+    GRAPH.dfs()
+elif choice == "bfs":
+    GRAPH.bfs()
+else:
+    print("Invalid input")
