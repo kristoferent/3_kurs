@@ -18,13 +18,11 @@ def file_handle(q, lock, n):
                 break
             y, sr = librosa.load(f)
             mfcc = librosa.feature.mfcc(y=y, sr=sr)
-            s = path + '/mfcc' + f[len(task1.AUDIO_PATH):-3] + 'txt'
+            s = path + '/mfcc' + f[len(task1.AUDIO_PATH):-3] + 'npy'
         finally:
             lock.release()
-        with open(s, 'w+') as txt:
-            print('creating {}'.format(s))
-            print('with thread {}'.format(n))
-            txt.write(np.array2string(mfcc))
+        print('creating {}'.format(s))
+        np.save(s, mfcc)
 
 
 def main():

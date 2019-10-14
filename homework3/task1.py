@@ -25,10 +25,10 @@ def create_path():
 def file_handle(f):
     y, sr = librosa.load(f)
     mfcc = librosa.feature.mfcc(y=y, sr=sr)
-    s = path + '/mfcc' + f[len(AUDIO_PATH):-3] + 'txt'
-    with open(s, 'w+') as txt:
-        print('creating {}'.format(s))
-        txt.write(np.array2string(mfcc))
+    s = path + '/mfcc' + f[len(AUDIO_PATH):-3] + 'npy'
+    #with open(s, 'w+') as txt:
+    print('creating {}'.format(s))
+    np.save(s, mfcc)
 
 def main():
     start_time = time.time()
